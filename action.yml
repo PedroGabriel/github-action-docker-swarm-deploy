@@ -172,7 +172,7 @@ runs:
     
     - name: Run Docker Stack deployment via SSH.
       run: |
-        docker_compose_files=$(echo "${{ inputs.docker_compose_file_path }}" | xargs -n1 echo --compose-file)
+        docker_compose_files="--compose-file docker-compose.yml --compose-file docker-compose.dev.yml"
         
         docker --log-level ${{ env.ACTIONS_STEP_DEBUG == 'true' && 'debug' || inputs.log_level }} -H ssh://${{ inputs.ssh_deploy_user }}@${{ inputs.ssh_remote_hostname }}:${{ inputs.ssh_remote_port }} \
           stack deploy --detach=false --with-registry-auth \
